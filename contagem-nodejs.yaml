@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: contagem-nodejs-deployment
+spec:
+  replicas: 5
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: contagem-nodejs
+    spec:
+      containers:
+      - name: contagem-nodejs
+        image: tadrianonet/apicontador-node
+        ports:
+        - containerPort: 80
